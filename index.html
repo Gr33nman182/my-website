@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Server Access Guide</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      line-height: 1.6;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1, h2 {
+      color: #ffffff;
+    }
+
+    a {
+      color: #64b5f6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      background-color: #1e1e1e;
+      color: #f78c6c;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .highlight {
+      color: #ffd54f;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    .note {
+      background: #1d1d1d;
+      padding: 1rem;
+      border-left: 4px solid #64b5f6;
+      margin-top: 1rem;
+      border-radius: 5px;
+    }
+
+    .emoji {
+      font-size: 1.2rem;
+      margin-right: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>How to Connect to Your Media Servers 🎬</h1>
+
+  <div class="section">
+    <h2>Why the Change?</h2>
+    <p>Plex has started charging for remote streaming, meaning watching outside of my house is no longer free.</p>
+    <p>To keep things simple and cost-free, I recommend using <strong>Jellyfin</strong>, a completely free alternative with a similar interface.</p>
+    <p>If you still prefer Plex, no problem! We have a workaround using <strong>Tailscale</strong>, which tricks Plex into thinking you're at my house, restoring free streaming. It may slightly affect streaming performance.</p>
+  </div>
+
+  <div class="section">
+    <h2>Connecting to Jellyfin (Recommended)</h2>
+    <ul>
+      <li><span class="emoji">🧭</span><strong>Step 1:</strong> Open a web browser (Chrome, Safari, Edge, etc.)</li>
+      <li><span class="emoji">🌐</span><strong>Step 2:</strong> Visit <a href="https://tmulligan.duckdns.org" target="_blank">tmulligan.duckdns.org</a></li>
+      <li><span class="emoji">🔐</span><strong>Step 3:</strong> Log in using the username (ask me if you don't know it) and password: <code>changeme</code></li>
+      <li><span class="emoji">🔑</span><strong>Step 4:</strong> Go to <strong>Settings → Profile</strong> and change your password</li>
+      <li><span class="emoji">🧰</span><strong>Step 5:</strong> If Jellyfin is down, use <a href="https://jelly4k.duckdns.org" target="_blank">jelly4k.duckdns.org</a> (same credentials)</li>
+      <li><span class="emoji">🎉</span><strong>Step 6:</strong> Enjoy watching!</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Requesting Movies & Shows on Jellyfin</h2>
+    <ul>
+      <li><span class="emoji">🌍</span><strong>Step 1:</strong> Open a web browser</li>
+      <li><span class="emoji">📝</span><strong>Step 2:</strong> Visit <a href="https://finrequest.duckdns.org" target="_blank">finrequest.duckdns.org</a></li>
+      <li><span class="emoji">🔐</span><strong>Step 3:</strong> Log in with your Jellyfin username/password</li>
+      <li><span class="emoji">🔍</span><strong>Step 4:</strong> Search for the title and click <strong>Request</strong> to add it to the library</li>
+    </ul>
+    <div class="note">Note: The request page might take a minute to load—please be patient!</div>
+  </div>
+
+  <div class="section">
+    <h2>Connecting to Plex (via Tailscale)</h2>
+    <ul>
+      <li><span class="emoji">⬇️</span><strong>Step 1:</strong> Download and install <a href="https://tailscale.com/download" target="_blank">Tailscale</a> for your device</li>
+      <li><span class="emoji">🔐</span><strong>Step 2:</strong> Open Tailscale and contact me for login details</li>
+      <li><span class="emoji">✅</span><strong>Step 3:</strong> Ensure Tailscale is running (look for the tray icon)</li>
+    </ul>
+    <h3>Option A: Use the Plex App (Recommended)</h3>
+    <ul>
+      <li>Open the Plex app</li>
+      <li>Add a manual server: <code>plexnas.stoat-bull.ts.net:32400</code></li>
+      <li>Log in with your Plex credentials</li>
+    </ul>
+    <h3>Option B: Use a Web Browser</h3>
+    <ul>
+      <li>Ensure Tailscale is running</li>
+      <li>Visit <a href="http://plexnas.stoat-bull.ts.net:32400" target="_blank">http://plexnas.stoat-bull.ts.net:32400</a> (use <strong>http</strong>, not https)</li>
+      <li>Log in with your Plex username/password</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Need Help?</h2>
+    <p>If any of these steps don’t work or seem confusing, just let me know — I’m happy to help!</p>
+  </div>
+</body>
+</html>
