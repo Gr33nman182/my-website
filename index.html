@@ -2,130 +2,147 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
   <title>How to Connect to Your Media Servers 🎬</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
       background-color: #121212;
-      color: #f0f0f0;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
       line-height: 1.6;
-      margin: 0;
-      padding: 2rem;
+      padding: 2em;
+      max-width: 800px;
+      margin: auto;
     }
     h1, h2, h3 {
-      color: #ffa500;
+      color: #ffd700;
     }
     a {
-      color: #80d4ff;
-      text-decoration: underline;
+      color: #90caf9;
     }
-    code {
-      background: #1e1e1e;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-      font-family: monospace;
+    button {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      margin: 0.5em 0;
     }
-    .note {
-      background: #333;
-      padding: 1rem;
-      border-left: 5px solid #ffa500;
-      margin: 1rem 0;
-      border-radius: 6px;
+    button:hover {
+      background-color: #444;
+    }
+    .hidden {
+      display: none;
+      margin: 1em 0;
+    }
+    .section {
+      margin-bottom: 2em;
     }
   </style>
+  <script>
+    const PASSWORD = "0529";
+    const granted = sessionStorage.getItem("access_granted");
+
+    if (granted !== "yes") {
+      const input = prompt("Enter access password:");
+      if (input !== PASSWORD) {
+        document.write("Access denied.");
+        throw new Error("Unauthorized");
+      } else {
+        sessionStorage.setItem("access_granted", "yes");
+      }
+    }
+
+    function reveal(id, btn) {
+      document.getElementById(id).style.display = "block";
+      btn.style.display = "none";
+    }
+  </script>
 </head>
 <body>
   <h1>How to Connect to Your Media Servers 🎬</h1>
 
-  <h2>Why the Change?</h2>
-  <p>Plex has started charging for remote streaming, meaning watching outside of my house is no longer free.</p>
-  <p>To keep things simple and cost-free, I recommend using <strong>Jellyfin</strong>, a completely free alternative with a similar interface.</p>
-  <p>Prefer Plex? No problem! There's a workaround using <strong>Tailscale</strong> that tricks Plex into thinking your device is at my house—free streaming again. Performance may vary.</p>
-
-  <h2>Connecting to Jellyfin (Recommended)</h2>
-  <p>Jellyfin is a media server where you can watch movies and TV shows—free, forever.</p>
-
-  <h3>Step 1: Open a Web Browser</h3>
-  <p>Use Chrome, Safari, Edge, or any browser on your computer, tablet, or phone.</p>
-
-  <h3>Step 2: Visit Jellyfin</h3>
-  <p>Go to <a href="http://tmulligan.duckdns.org" target="_blank">tmulligan.duckdns.org</a>.</p>
-
-  <h3>Step 3: Log In</h3>
-  <ul>
-    <li>Enter your <strong>Username</strong> (ask me if you don’t know it)</li>
-    <li>Enter the Password: <code>changeme</code></li>
-    <li>Click <strong>Log In</strong></li>
-  </ul>
-
-  <h3>Step 4: Change Your Password (Important!)</h3>
-  <ul>
-    <li>Navigate to Settings → Profile</li>
-    <li>Set a secure password you’ll remember</li>
-  </ul>
-
-  <h3>Step 5: Backup Jellyfin Server</h3>
-  <p>If the main server isn’t working, go to <a href="http://jelly4k.duckdns.org" target="_blank">jelly4k.duckdns.org</a> instead. Same login applies.</p>
-
-  <h3>Step 6: Enjoy!</h3>
-  <p>Browse, stream, and watch all available media.</p>
-
-  <div class="note">
-    <h3>📺 Jellyfin Apps for Smart TVs & Mobile</h3>
-    <ul>
-      <li>There are official Jellyfin apps for Android TV, Fire TV, Roku, iOS, and Android phones.</li>
-      <li>Use the same server address: <code>tmulligan.duckdns.org</code> when signing in.</li>
-    </ul>
-    <p><strong>⚠️ Note:</strong> Sometimes the mobile app has trouble with playback. If that happens, try using your mobile browser (Chrome or Safari) instead. It often works better and can even cast to your TV.</p>
+  <div class="section">
+    <h2>Why the Change?</h2>
+    <p>
+      Plex has started charging for remote streaming, meaning watching outside of my house is no longer free.
+      To keep things simple and cost-free, I recommend using Jellyfin, a completely free alternative with a similar interface.
+    </p>
+    <p>
+      Prefer Plex? No problem! We have a workaround using Tailscale, an app that tricks Plex into thinking your device is at my home, allowing free streaming again. However, this method may slightly affect streaming performance.
+    </p>
   </div>
 
-  <h2>Requesting Movies & Shows on Jellyfin</h2>
+  <div class="section">
+    <h2>Connecting to Jellyfin (Recommended)</h2>
+    <ol>
+      <li>Open any browser on your computer, tablet, or phone.</li>
+      <li>
+        <button onclick="reveal('jelly-url', this)">Click to Reveal Jellyfin URL</button>
+        <div id="jelly-url" class="hidden">
+          <strong>Jellyfin Server:</strong> <a href="http://tmulligan.duckdns.org" target="_blank">tmulligan.duckdns.org</a>
+        </div>
+      </li>
+      <li>Log in using your username (ask me if you don't know it) and the password <strong>changeme</strong>.</li>
+      <li>Go to Settings → Profile and change your password to something secure.</li>
+      <li>
+        If the main server isn’t working:
+        <button onclick="reveal('jelly-backup-url', this)">Click to Reveal Backup Jellyfin URL</button>
+        <div id="jelly-backup-url" class="hidden">
+          <strong>Backup Server:</strong> <a href="http://jelly4k.duckdns.org" target="_blank">jelly4k.duckdns.org</a>
+        </div>
+      </li>
+      <li>Enjoy browsing and streaming your media!</li>
+    </ol>
+    <p><strong>Reminder:</strong> There are Jellyfin apps available for smart TVs and mobile devices. Use the same server address. However, the mobile app can sometimes have trouble streaming—using your phone’s browser and casting to a TV may work better.</p>
+  </div>
 
-  <h3>Step 1: Open a Web Browser</h3>
-  <p>Use any browser.</p>
+  <div class="section">
+    <h2>Requesting Movies & Shows on Jellyfin</h2>
+    <ol>
+      <li>Open a browser and:
+        <button onclick="reveal('request-url', this)">Click to Reveal Request Page</button>
+        <div id="request-url" class="hidden">
+          <strong>Request Page:</strong> <a href="http://finrequest.duckdns.org" target="_blank">finrequest.duckdns.org</a>
+        </div>
+      </li>
+      <li>Log in using your Jellyfin credentials.</li>
+      <li>Be patient—the page may take a minute to load.</li>
+      <li>Search for the movie or show and click "Request" if available.</li>
+    </ol>
+  </div>
 
-  <h3>Step 2: Visit the Request Page</h3>
-  <p>Go to <a href="http://finrequest.duckdns.org" target="_blank">finrequest.duckdns.org</a>.</p>
+  <div class="section">
+    <h2>Connecting to Plex (via Tailscale)</h2>
+    <ol>
+      <li>Go to <a href="https://tailscale.com/download" target="_blank">tailscale.com/download</a> and install the app on your device.</li>
+      <li>Open Tailscale and log in (ask me for login details).</li>
+      <li>Ensure Tailscale is running—look for the icon in your system tray (Windows) or menu bar (Mac).</li>
+      <li>
+        Access Plex using either method:
+        <ul>
+          <li><strong>Plex App:</strong> Add a manual server:
+            <button onclick="reveal('plex-url', this)">Click to Reveal Plex Server Address</button>
+            <div id="plex-url" class="hidden">
+              <strong>Plex Server:</strong> <code>plexnas.stoat-bull.ts.net:32400</code>
+            </div>
+          </li>
+          <li><strong>Browser:</strong> Make sure Tailscale is active, then:
+            <button onclick="reveal('plex-browser-url', this)">Click to Reveal Plex Web URL</button>
+            <div id="plex-browser-url" class="hidden">
+              <strong>Plex Web:</strong> <a href="http://plexnas.stoat-bull.ts.net:32400" target="_blank">http://plexnas.stoat-bull.ts.net:32400</a>
+              <br>(Note: use <code>http</code>, not <code>https</code>)
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </div>
 
-  <h3>Step 3: Log In</h3>
-  <p>Use your Jellyfin username and password.</p>
-  <p><em>The page may take a minute to load—be patient!</em></p>
-
-  <h3>Step 4: Search & Request</h3>
-  <p>Type the name of the movie or show and click <strong>Request</strong> if available.</p>
-
-  <h2>Connecting to Plex (via Tailscale)</h2>
-  <p>If you prefer Plex, use Tailscale to bypass remote streaming fees.</p>
-
-  <h3>Step 1: Download & Install Tailscale</h3>
-  <p>Go to <a href="https://tailscale.com/download" target="_blank">tailscale.com/download</a> and install the app for your device.</p>
-
-  <h3>Step 2: Log in to Tailscale</h3>
-  <p>Contact me for login details.</p>
-
-  <h3>Step 3: Ensure Tailscale is Active</h3>
-  <p>Look for the Tailscale icon in your system tray (bottom right on Windows, top right on Mac).</p>
-  <p>Make sure it says <strong>Active</strong> or <strong>Connected</strong>.</p>
-
-  <h3>Step 4: Access Plex</h3>
-  <p><strong>Option 1: Plex App (Recommended)</strong></p>
-  <ul>
-    <li>Open the Plex app (install via Plex Downloads if needed)</li>
-    <li>Choose to add a manual server</li>
-    <li>Enter: <code>plexnas.stoat-bull.ts.net:32400</code></li>
-    <li>Log in with your Plex credentials</li>
-  </ul>
-
-  <p><strong>Option 2: Web Browser</strong></p>
-  <ul>
-    <li>Ensure Tailscale is connected</li>
-    <li>Open Chrome, Safari, or Edge</li>
-    <li>Go to: <a href="http://plexnas.stoat-bull.ts.net:32400" target="_blank">http://plexnas.stoat-bull.ts.net:32400</a></li>
-    <li>Log in with your Plex username and password</li>
-  </ul>
-
-  <h2>Need Help?</h2>
-  <p>If any of these steps don’t work or seem confusing, just reach out—I’m happy to help!</p>
+  <div class="section">
+    <h2>Need Help?</h2>
+    <p>If any of these steps are unclear or not working, just reach out—I’m happy to help troubleshoot or walk you through it!</p>
+  </div>
 </body>
 </html>
